@@ -14,7 +14,6 @@ BQ_PROJECT = Variable.get("bq_project_id", default_var="my-etl-project-452702")
 BQ_DATASET = Variable.get("bq_dataset", default_var="etl_dataset")
 BQ_TABLE_PRODUCT = "products"
 
-
 #  Validate Product Data (Check only if file exists)
 def validate_product_data(**kwargs):
     file_name = "products.csv"
@@ -70,7 +69,7 @@ def transform_product_data(**kwargs):
 
     return "Transformation completed."
 
-#  ตั้งค่า DAG สำหรับ Product ETL
+
 with DAG(
     "product_etl",
     schedule_interval="@daily",

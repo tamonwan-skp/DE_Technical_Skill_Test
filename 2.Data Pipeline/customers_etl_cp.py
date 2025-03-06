@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 import logging
 from io import StringIO
-import re  # ใช้สำหรับเช็ค email format
+
 
 BUCKET_NAME = Variable.get("gcs_bucket_name", default_var="raw-data-de-project1")
 BQ_PROJECT = Variable.get("bq_project_id", default_var="my-etl-project-452702")
@@ -43,14 +43,14 @@ def transform_customer_data(**kwargs):
     # Delete `customer_id` is NaN
     data = data.dropna(subset=["customer_id"])
 
-    # 🔹 2. ตรวจสอบ missing values ใน `customer_id`, `name`, `email`
+    # missing values in `customer_id`, `name`, `email`
     required_columns = ["customer_id", "name", "email"]
     for col in required_columns:
         if data[col].isnull().any() or (data[col] == "").any():
             logging.error(f" ERROR DETECTED:  {col} is null")
             raise ValueError(f" Validation Failed:  {col} is null")
     
-    # 🔹 3. แก้ไขค่า missing
+    # Fix missing
     data["name"] = data["name"].fillna("Unknown")
     data["email"] = data["email"].fillna("unknown@email.com")
 
