@@ -32,7 +32,7 @@ def convert_to_datetime(date_str):
         return pd.NaT
 
 # โหลดข้อมูลต้นฉบับ
-df = pd.read_csv("/Users/bollikobow/Documents/NS/NS Code/dataset/transactions.csv")
+df = pd.read_csv("/dataset/transactions.csv")
 
 # เปลี่ยนชื่อคอลัมน์ 'date' เป็น 'transaction_date'
 df.rename(columns={"date": "transaction_date"}, inplace=True)
